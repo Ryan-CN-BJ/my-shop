@@ -1,0 +1,12 @@
+{
+  "window.commandCenter": true,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "explorer.compactFolders": false,
+  "files.associations": {
+    "*.css": "tailwindcss"
+  }
+}
