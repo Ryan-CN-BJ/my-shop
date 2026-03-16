@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { Separator } from '@/components/ui/separator'
 
 export default function Header() {
   return (
@@ -9,7 +10,9 @@ export default function Header() {
         </h1>
         <div className="flex gap-[15] text-sm">
           <Link href="/search">Search</Link>
+          <Separator orientation={'vertical'} />
           <Link href="/account">Account</Link>
+          <Separator orientation={'vertical'} />
           <Link href="/cart">Cart</Link>
         </div>
       </div>
