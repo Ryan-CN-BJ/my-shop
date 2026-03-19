@@ -15,5 +15,4 @@ export async function productsAction(): Promise<{
     body: 'success',
     data: result as Array<Product>,
   }
-  revalidatePath('/')
 }
