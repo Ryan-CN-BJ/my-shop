@@ -1,7 +1,6 @@
 'use server'
 import sql from '@/lib/db'
 import { cacheLife } from 'next/cache'
-import { revalidatePath } from 'next/cache'
 export async function productsAction(): Promise<{
   status: number
   body: string
