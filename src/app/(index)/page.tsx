@@ -22,7 +22,6 @@ async function productsAction(): Promise<{
 export default async function Page() {
   const res = await productsAction()
   const products = res.data
-  console.log(products)
   return (
     <div className="w-[980] py-[50] mx-auto flex items-start">
       <Sort />
