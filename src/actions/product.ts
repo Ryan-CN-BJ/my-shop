@@ -8,7 +8,7 @@ export async function productsAction(): Promise<{
   data: Array<Product>
 }> {
   'use cache'
-  cacheLife({ stale: 10 })
+  cacheLife({ revalidate: 10 })
   const result = await sql.query('SELECT * FROM products')
   return {
     status: 200,
