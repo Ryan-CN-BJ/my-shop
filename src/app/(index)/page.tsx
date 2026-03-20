@@ -21,8 +21,8 @@ import { cacheLife } from 'next/cache'
 // }
 
 export default async function Page() {
-  'use cache'
-  cacheLife({ stale: 3000, revalidate: 20, expire: 60 * 60 * 24 })
+  // 'use cache'
+  // cacheLife({ stale: 3000, revalidate: 20, expire: 60 * 60 * 24 })
   const res = await productsAction()
   const products = res.data
   return (
