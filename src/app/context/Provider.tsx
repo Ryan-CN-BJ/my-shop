@@ -1,15 +1,16 @@
 'use client'
 import { createContext, useState } from 'react'
+import type { ReactNode, Dispatch, SetStateAction } from 'react'
 
 export const appContext = createContext<{
   sortType: string
-  setSortType: ((type: string) => void) | null
+  setSortType: Dispatch<SetStateAction<string>>
 }>({
   sortType: 'latest',
-  setSortType: null,
+  setSortType: () => {},
 })
 
-export default function Provider({ children }: { children: React.ReactNode }) {
+export default function Provider({ children }: { children: ReactNode }) {
   const [sortType, setSortType] = useState('latest')
   return <appContext.Provider value={{ sortType, setSortType }}>{children}</appContext.Provider>
 }

@@ -28,7 +28,7 @@ export default function Sort() {
         type={'single'}
         spacing={2}
         onValueChange={(v) => {
-          setSortType!(v)
+          setSortType(v)
         }}
         value={sortType}
       >
