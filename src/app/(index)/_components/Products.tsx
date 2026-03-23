@@ -29,13 +29,10 @@ export default function Products({
           return (
             <Fragment key={product.id}>
               <div className="shadow-xl cursor-pointer transition duration-[3000] ease-in-out flex flex-col items-center bg-slate-50 hover:bg-slate-200 p-[15] rounded-2xl">
-                <Image
-                  className="w-[80%] h-[150] object-cover"
-                  width={300}
-                  height={150}
-                  src={product.image}
-                  alt={product.name}
-                />
+                <div className="h-[150] w-[60%] relative">
+                  <Image src={product.image} alt={product.name} fill={true} />
+                </div>
+
                 <div className="mt-[20] px-[20] flex w-full justify-between items-center">
                   <h3>{product.name}</h3>
                   <p className="text-red-400 font-bold text-lg">{'$' + product.price}</p>
