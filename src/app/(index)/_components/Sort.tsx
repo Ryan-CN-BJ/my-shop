@@ -2,10 +2,19 @@
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { Fragment, useState } from 'react'
 import { SortTypes } from '@/lib/constant'
+// import { usePathname, useSearchParams } from 'next/navigation'
+// import { useRouter } from 'next/navigation'
 export default function Sort() {
+  // const searchParams = useSearchParams()
+  // const params = new URLSearchParams(searchParams.toString())
+  // const router = useRouter()
+  // const path = usePathname()
+
   const [value, setVal] = useState('low')
   const onValueChange = (v: SortValueType) => {
+    // params.set('a', v)
     setVal(v)
+    // router.push(path + '?' + params.toString())
   }
   return (
     <div>

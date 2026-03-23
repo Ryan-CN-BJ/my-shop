@@ -1,9 +1,22 @@
 'use client'
-
 import Image from 'next/image'
 import { Fragment } from 'react/jsx-runtime'
 
-export default function Products({ products }: { products: Array<Product> }) {
+export default function Products({
+  products,
+}: {
+  products: Array<Product>
+  // s: Promise<Record<string, string | string[] | undefined>>
+}) {
+  // products.sort((p, x) => {
+  //   if (a === 'low') {
+  //     return p.price - x.price
+  //   } else if (a === 'hight') {
+  //     return x.price - p.price
+  //   }
+  //   return 0
+  // })
+
   return (
     <div className="flex-1 ml-[40]">
       <h2 className="mb-[30] text-2xl">All Products</h2>

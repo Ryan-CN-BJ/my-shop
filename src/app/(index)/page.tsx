@@ -1,7 +1,9 @@
 import Sort from '@/app/(index)/_components/Sort'
 import Products from '@/app/(index)/_components/Products'
 import { productsAction } from '@/actions/product'
-import { cacheLife } from 'next/cache'
+// import { Suspense } from 'react'
+// import { cacheLife } from 'next/cache'
+// import { cacheLife } from 'next/cache'
 // import sql from '@/lib/db'
 // import { cacheLife } from 'next/cache'
 
@@ -22,7 +24,11 @@ import { cacheLife } from 'next/cache'
 
 export default async function Page() {
   // 'use cache'
-  // cacheLife({ stale: 3000, revalidate: 20, expire: 60 * 60 * 24 })
+  // cacheLife({
+  //   stale: 1000,
+  //   revalidate: 3000,
+  //   expire: 30000,
+  // })
   const res = await productsAction()
   const products = res.data
   return (
