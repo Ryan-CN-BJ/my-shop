@@ -1,7 +1,8 @@
 'use client'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
-import { Fragment, useState } from 'react'
+import { Fragment } from 'react'
 import { SortTypes } from '@/lib/constant'
+import { useSortType } from '@/app/(index)/store'
 // import { usePathname, useSearchParams } from 'next/navigation'
 // import { useRouter } from 'next/navigation'
 export default function Sort() {
@@ -10,10 +11,13 @@ export default function Sort() {
   // const router = useRouter()
   // const path = usePathname()
 
-  const [value, setVal] = useState('low')
+  // const [value, setVal] = useState('low')
+  const setSortType = useSortType((state) => state.setSortType)
+  const sortType = useSortType((state) => state.sortType)
   const onValueChange = (v: SortValueType) => {
     // params.set('a', v)
-    setVal(v)
+    console.log(v, 'vvvvvvvvvvv-')
+    setSortType(v)
     // router.push(path + '?' + params.toString())
   }
   return (
@@ -24,7 +28,7 @@ export default function Sort() {
         type={'single'}
         spacing={2}
         onValueChange={onValueChange}
-        value={value}
+        value={sortType}
       >
         {SortTypes.map((item) => {
           return (
