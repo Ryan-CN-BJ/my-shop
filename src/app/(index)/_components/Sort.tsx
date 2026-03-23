@@ -2,7 +2,8 @@
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { Fragment } from 'react'
 import { SortTypes } from '@/lib/constant'
-import { useSortType } from '@/app/(index)/store'
+import { useContext } from 'react'
+import { appContext } from '@/app/context/Provider'
 // import { usePathname, useSearchParams } from 'next/navigation'
 // import { useRouter } from 'next/navigation'
 export default function Sort() {
@@ -12,14 +13,13 @@ export default function Sort() {
   // const path = usePathname()
 
   // const [value, setVal] = useState('low')
-  const setSortType = useSortType((state) => state.setSortType)
-  const sortType = useSortType((state) => state.sortType)
-  const onValueChange = (v: SortValueType) => {
-    // params.set('a', v)
-    console.log(v, 'vvvvvvvvvvv-')
-    setSortType(v)
-    // router.push(path + '?' + params.toString())
-  }
+  // const onValueChange = (v: SortValueType) => {
+  //   // params.set('a', v)
+  //   console.log(v, 'vvvvvvvvvvv-')
+  //   setSortType(v)
+  //   // router.push(path + '?' + params.toString())
+  // }
+  const { sortType, setSortType } = useContext(appContext)
   return (
     <div>
       <h2 className="mb-[10]">Sort By</h2>
@@ -27,7 +27,9 @@ export default function Sort() {
         orientation={'vertical'}
         type={'single'}
         spacing={2}
-        onValueChange={onValueChange}
+        onValueChange={(v) => {
+          setSortType!(v)
+        }}
         value={sortType}
       >
         {SortTypes.map((item) => {

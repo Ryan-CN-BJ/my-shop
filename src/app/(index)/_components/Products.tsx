@@ -1,6 +1,8 @@
 'use client'
 import Image from 'next/image'
 import { Fragment } from 'react/jsx-runtime'
+import { useContext } from 'react'
+import { appContext } from '@/app/context/Provider'
 
 export default function Products({
   products,
@@ -8,14 +10,16 @@ export default function Products({
   products: Array<Product>
   // s: Promise<Record<string, string | string[] | undefined>>
 }) {
-  // products.sort((p, x) => {
-  //   if (a === 'low') {
-  //     return p.price - x.price
-  //   } else if (a === 'hight') {
-  //     return x.price - p.price
-  //   }
-  //   return 0
-  // })
+  const { sortType } = useContext(appContext)
+
+  products.sort((p, x) => {
+    if (sortType === 'low') {
+      return p.price - x.price
+    } else if (sortType === 'hight') {
+      return x.price - p.price
+    }
+    return 0
+  })
 
   return (
     <div className="flex-1 ml-[40]">
