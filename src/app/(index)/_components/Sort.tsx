@@ -2,8 +2,7 @@
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { Fragment } from 'react'
 import { SortTypes } from '@/lib/constant'
-import { useContext } from 'react'
-import { appContext } from '@/app/context/Provider'
+import { useSortType, type SortType } from '@/app/(index)/store/index'
 // import { usePathname, useSearchParams } from 'next/navigation'
 // import { useRouter } from 'next/navigation'
 export default function Sort() {
@@ -19,7 +18,8 @@ export default function Sort() {
   //   setSortType(v)
   //   // router.push(path + '?' + params.toString())
   // }
-  const { sortType, setSortType } = useContext(appContext)
+  const sortType = useSortType((s) => s.sortType)
+  const setSortType = useSortType((s) => s.setSortType)
   return (
     <div>
       <h2 className="mb-[10]">Sort By</h2>
@@ -28,7 +28,8 @@ export default function Sort() {
         type={'single'}
         spacing={2}
         onValueChange={(v) => {
-          setSortType(v)
+          if (!v) return
+          if (v === 'latest' || v === 'low' || v === 'hight') setSortType(v as SortType)
         }}
         value={sortType}
       >

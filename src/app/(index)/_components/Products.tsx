@@ -1,8 +1,7 @@
 'use client'
 import Image from 'next/image'
 import { Fragment } from 'react/jsx-runtime'
-import { useContext } from 'react'
-import { appContext } from '@/app/context/Provider'
+import { useSortType } from '@/app/(index)/store/index'
 
 export default function Products({
   products,
@@ -10,7 +9,7 @@ export default function Products({
   products: Array<Product>
   // s: Promise<Record<string, string | string[] | undefined>>
 }) {
-  const { sortType } = useContext(appContext)
+  const sortType = useSortType((s) => s.sortType)
 
   products.sort((p, x) => {
     if (sortType === 'low') {
