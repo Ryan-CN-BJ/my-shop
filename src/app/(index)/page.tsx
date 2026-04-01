@@ -1,6 +1,7 @@
 import Sort from '@/app/(index)/_components/Sort'
 import Products from '@/app/(index)/_components/Products'
 import { productsAction } from '@/actions/product'
+import { connection } from 'next/server'
 // import { Suspense } from 'react'
 // import { cacheLife } from 'next/cache'
 // import { cacheLife } from 'next/cache'
@@ -24,6 +25,7 @@ import { productsAction } from '@/actions/product'
 
 export default async function Page() {
   // await new Promise((resolve) => setTimeout(resolve, 3000))
+  await connection()
   const res = await productsAction()
   const products = res.data
   return (
