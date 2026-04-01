@@ -3,7 +3,7 @@ import Products from '@/app/(index)/_components/Products'
 import { productsAction } from '@/actions/product'
 // import { Suspense } from 'react'
 // import { cacheLife } from 'next/cache'
-import { cacheLife } from 'next/cache'
+// import { cacheLife } from 'next/cache'
 // import sql from '@/lib/db'
 // import { cacheLife } from 'next/cache'
 
@@ -23,6 +23,7 @@ import { cacheLife } from 'next/cache'
 // }
 
 export default async function Page() {
+  await new Promise((resolve) => setTimeout(resolve, 3000))
   const res = await productsAction()
   const products = res.data
   return (
