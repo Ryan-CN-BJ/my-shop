@@ -2,6 +2,7 @@
 import Image from 'next/image'
 import { Fragment } from 'react/jsx-runtime'
 import { useSortType } from '@/app/(index)/store/index'
+import { useRouter } from 'next/navigation'
 
 export default function Products({
   products,
@@ -20,6 +21,10 @@ export default function Products({
     return 0
   })
 
+  const router = useRouter()
+  const handleToDetail = (id: number) => {
+    router.push(`/detail/${id}`)
+  }
   return (
     <div className="flex-1 ml-[40]">
       <h2 className="mb-[30] text-2xl">All Products</h2>
@@ -27,7 +32,10 @@ export default function Products({
         {products.map((product) => {
           return (
             <Fragment key={product.id}>
-              <div className="shadow-xl cursor-pointer transition duration-[3000] ease-in-out flex flex-col items-center bg-slate-50 hover:bg-slate-200 p-[15] rounded-2xl">
+              <div
+                onClick={() => handleToDetail(product.id)}
+                className="shadow-xl cursor-pointer transition duration-[3000] ease-in-out flex flex-col items-center bg-slate-50 hover:bg-slate-200 p-[15] rounded-2xl"
+              >
                 <div className="h-[150] w-[60%] relative">
                   <Image src={product.image} alt={product.name} fill={true} />
                 </div>
