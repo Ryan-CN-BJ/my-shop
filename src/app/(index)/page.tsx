@@ -23,7 +23,7 @@ import { productsAction } from '@/actions/product'
 // }
 
 export default async function Page() {
-  await new Promise((resolve) => setTimeout(resolve, 3000))
+  // await new Promise((resolve) => setTimeout(resolve, 3000))
   const res = await productsAction()
   const products = res.data
   return (
