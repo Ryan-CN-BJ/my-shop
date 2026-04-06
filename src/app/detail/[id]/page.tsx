@@ -1,4 +1,5 @@
 // 'use client'
+export const dynamicParams = false
 
 // import { use } from 'react'
 import { productDetailAction, productsAction } from '@/actions/product'
