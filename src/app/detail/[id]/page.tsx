@@ -1,19 +1,30 @@
-'use client'
+// 'use client'
 
-import { use } from 'react'
-import { productDetailAction } from '@/actions/product'
-import { useEffect, useState } from 'react'
+// import { use } from 'react'
+import { productDetailAction, productsAction } from '@/actions/product'
+// import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import AddCart from '../components/AddCart'
+export async function generateStaticParams() {
+  const { data } = await productsAction()
+  return data.map((product) => {
+    return {
+      id: product.id + '',
+    }
+  })
+}
 
-export default function DetailPage(props: PageProps<'/detail/[id]'>) {
-  const { id } = use(props.params)
-  const [product, setProduct] = useState<Product>()
-  useEffect(() => {
-    productDetailAction({ id: parseInt(id) }).then((product) => {
-      setProduct(product)
-    })
-  }, [id])
+export default async function DetailPage(props: PageProps<'/detail/[id]'>) {
+  // const { id } = use(props.params)
+  // const [product, setProduct] = useState<Product>()
+  // useEffect(() => {
+  //   productDetailAction({ id: parseInt(id) }).then((product) => {
+  //     setProduct(product)
+  //   })
+  // }, [id])
+  const { id } = await props.params
+  const product = await productDetailAction({ id: parseInt(id) })
+
   if (!product) {
     return null
   }
