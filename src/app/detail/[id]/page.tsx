@@ -7,11 +7,13 @@ import Image from 'next/image'
 import AddCart from '../components/AddCart'
 export async function generateStaticParams() {
   const { data } = await productsAction()
-  return data.map((product) => {
-    return {
-      id: product.id + '',
-    }
-  })
+  return data
+    .map((product) => {
+      return {
+        id: product.id + '',
+      }
+    })
+    .slice(0, 5)
 }
 
 export default async function DetailPage(props: PageProps<'/detail/[id]'>) {
