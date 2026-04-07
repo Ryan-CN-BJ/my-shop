@@ -1,19 +1,7 @@
-import { productsAction } from '@/actions/product'
+import { productDetailAction, productsAction } from '@/actions/product'
 import Image from 'next/image'
 import { Suspense } from 'react'
 import AddCart from '../components/AddCart'
-import sql from '@/lib/db'
-import { cacheLife } from 'next/cache'
-async function getProductDetail({ id }: { id: number }): Promise<Product> {
-  'use cache'
-  cacheLife({
-    stale: 60,
-    revalidate: 60,
-    expire: 60 * 60 * 24,
-  })
-  const result = await sql.query('SELECT * FROM products WHERE id = $1', [id])
-  return result[0] as Product
-}
 export async function generateStaticParams() {
   try {
     const { data } = await productsAction()
@@ -45,7 +33,7 @@ function DetailFallback() {
 
 async function DetailContent({ id }: { id: string }) {
   'use cache'
-  const product = await getProductDetail({ id: parseInt(id) })
+  const product = await productDetailAction({ id: parseInt(id, 10) })
 
   if (!product) {
     return null
