@@ -1,6 +1,4 @@
 // 'use client'
-export const dynamicParams = false
-
 // import { use } from 'react'
 import { productDetailAction, productsAction } from '@/actions/product'
 // import { useEffect, useState } from 'react'
