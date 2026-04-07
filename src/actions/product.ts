@@ -17,6 +17,7 @@ export async function productsAction(): Promise<{
 }
 
 export async function productDetailAction({ id }: { id: number }): Promise<Product> {
+  'use cache'
   const result = await sql.query('SELECT * FROM products WHERE id = $1', [id])
   return result[0] as Product
 }

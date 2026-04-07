@@ -1,6 +1,7 @@
 import Sort from '@/app/(index)/_components/Sort'
 import Products from '@/app/(index)/_components/Products'
 import { productsAction } from '@/actions/product'
+import { cacheLife } from 'next/cache'
 // import { connection } from 'next/server'
 // import { Suspense } from 'react'
 // import { cacheLife } from 'next/cache'
@@ -24,6 +25,12 @@ import { productsAction } from '@/actions/product'
 // }
 
 export default async function Page() {
+  'use cache'
+  cacheLife({
+    stale: 60,
+    revalidate: 60,
+    expire: 60 * 60 * 24,
+  })
   // await new Promise((resolve) => setTimeout(resolve, 3000))
   // await connection()
   const res = await productsAction()
