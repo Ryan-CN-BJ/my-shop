@@ -70,12 +70,12 @@ async function DetailContent({ id }: { id: number }) {
 }
 
 export default async function DetailPage(props: PageProps<'/detail/[id]'>) {
-  'use cache'
-  cacheLife({
-    stale: 60,
-    revalidate: 60 * 60 * 24,
-    expire: 60 * 60 * 24,
-  })
+  // 'use cache'
+  // cacheLife({
+  //   stale: 60,
+  //   revalidate: 60 * 60 * 24,
+  //   expire: 60 * 60 * 24,
+  // })
   const { id } = await props.params
   return (
     <div className="w-[980] py-[25] mx-auto flex items-start">
