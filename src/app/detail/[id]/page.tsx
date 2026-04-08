@@ -2,6 +2,7 @@ import { productDetailAction, productsAction } from '@/actions/product'
 import Image from 'next/image'
 import { Suspense } from 'react'
 import AddCart from '../components/AddCart'
+import { cacheLife } from 'next/cache'
 export async function generateStaticParams() {
   try {
     const { data } = await productsAction()
@@ -33,6 +34,11 @@ function DetailFallback() {
 
 async function DetailContent({ id }: { id: string }) {
   'use cache'
+  cacheLife({
+    stale: 60,
+    revalidate: 60 * 60 * 24,
+    expire: 60 * 60 * 24,
+  })
   const product = await productDetailAction({ id: parseInt(id, 10) })
 
   if (!product) {
