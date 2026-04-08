@@ -2,7 +2,7 @@ import { productDetailAction, productsAction } from '@/actions/product'
 import Image from 'next/image'
 import { Suspense } from 'react'
 import AddCart from '../components/AddCart'
-// import { cacheLife } from 'next/cache'
+import { cacheLife } from 'next/cache'
 export async function generateStaticParams() {
   try {
     const { data } = await productsAction()
@@ -70,6 +70,12 @@ async function DetailContent({ id }: { id: number }) {
 }
 
 export default async function DetailPage(props: PageProps<'/detail/[id]'>) {
+  'use cache'
+  cacheLife({
+    stale: 60,
+    revalidate: 60 * 60 * 24,
+    expire: 60 * 60 * 24,
+  })
   const { id } = await props.params
   return (
     <div className="w-[980] py-[25] mx-auto flex items-start">
