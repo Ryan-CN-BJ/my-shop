@@ -39,7 +39,7 @@ async function DetailContent({ id }: { id: string }) {
     revalidate: 60 * 60 * 24,
     expire: 60 * 60 * 24,
   })
-  const product = await productDetailAction({ id: parseInt(id, 10) })
+  const product = await productDetailAction({ id: parseInt(id) })
 
   if (!product) {
     return null
