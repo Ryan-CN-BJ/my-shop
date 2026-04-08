@@ -4,7 +4,7 @@ import { cacheLife } from 'next/cache'
 
 const PRODUCT_CACHE_POLICY = {
   stale: 60,
-  revalidate: 60 * 60 * 24,
+  revalidate: 60,
   expire: 60 * 60 * 24,
 } as const
 
