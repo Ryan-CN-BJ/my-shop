@@ -4,19 +4,12 @@ import Image from 'next/image'
 import AddCart from '../components/AddCart'
 // import { cacheLife } from 'next/cache'
 export async function generateStaticParams() {
-  try {
-    const { data } = await productsAction()
-    return data
-      .map((product) => {
-        return {
-          id: product.id + '',
-        }
-      })
-      .slice(0, 5)
-  } catch (error) {
-    console.log(error)
-    return [{ id: '1' }, { id: '2' }, { id: '3' }, { id: '4' }, { id: '5' }]
-  }
+  const { data } = await productsAction()
+  return data.map((product) => {
+    return {
+      id: product.id + '',
+    }
+  })
 }
 
 // function DetailFallback() {
