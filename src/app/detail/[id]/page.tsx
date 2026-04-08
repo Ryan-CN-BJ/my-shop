@@ -1,8 +1,8 @@
 import { productDetailAction, productsAction } from '@/actions/product'
 import Image from 'next/image'
-// import { Suspense } from 'react'
+import { Suspense } from 'react'
 import AddCart from '../components/AddCart'
-import { cacheLife } from 'next/cache'
+// import { cacheLife } from 'next/cache'
 export async function generateStaticParams() {
   try {
     const { data } = await productsAction()
@@ -19,18 +19,18 @@ export async function generateStaticParams() {
   }
 }
 
-// function DetailFallback() {
-//   return (
-//     <>
-//       <div className="w-[200]">
-//         <div className="h-[30] w-[160] bg-slate-200 rounded mb-[10]" />
-//         <div className="h-[16] w-[200] bg-slate-100 rounded" />
-//       </div>
-//       <div className="ml-[20] h-[300] w-[300] bg-slate-100 rounded" />
-//       <div className="ml-[100] h-[36] w-[120] bg-slate-100 rounded" />
-//     </>
-//   )
-// }
+function DetailFallback() {
+  return (
+    <>
+      <div className="w-[200]">
+        <div className="h-[30] w-[160] bg-slate-200 rounded mb-[10]" />
+        <div className="h-[16] w-[200] bg-slate-100 rounded" />
+      </div>
+      <div className="ml-[20] h-[300] w-[300] bg-slate-100 rounded" />
+      <div className="ml-[100] h-[36] w-[120] bg-slate-100 rounded" />
+    </>
+  )
+}
 
 async function DetailContent({ id }: { id: number }) {
   // 'use cache'
@@ -79,9 +79,9 @@ export default async function DetailPage(props: PageProps<'/detail/[id]'>) {
   const { id } = await props.params
   return (
     <div className="w-[980] py-[25] mx-auto flex items-start">
-      {/* <Suspense fallback={<DetailFallback />}> */}
-      <DetailContent id={Number(id)} />
-      {/* </Suspense> */}
+      <Suspense fallback={<DetailFallback />}>
+        <DetailContent id={Number(id)} />
+      </Suspense>
     </div>
   )
 }
