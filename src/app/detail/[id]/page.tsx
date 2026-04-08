@@ -32,14 +32,14 @@ function DetailFallback() {
   )
 }
 
-async function DetailContent({ id }: { id: string }) {
+async function DetailContent({ id }: { id: number }) {
   // 'use cache'
   // cacheLife({
   //   stale: 60,
   //   revalidate: 60 * 60 * 24,
   //   expire: 60 * 60 * 24,
   // })
-  const product = await productDetailAction({ id: parseInt(id) })
+  const product = await productDetailAction({ id })
 
   if (!product) {
     return null
@@ -74,7 +74,7 @@ export default async function DetailPage(props: PageProps<'/detail/[id]'>) {
   return (
     <div className="w-[980] py-[25] mx-auto flex items-start">
       <Suspense fallback={<DetailFallback />}>
-        <DetailContent id={id} />
+        <DetailContent id={Number(id)} />
       </Suspense>
     </div>
   )
