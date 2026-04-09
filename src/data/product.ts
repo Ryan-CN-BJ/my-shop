@@ -1,0 +1,16 @@
+import 'server-only'
+import { cacheLife } from 'next/cache'
+import sql from '@/lib/db'
+
+const PRODUCT_CACHE_POLICY = {
+  stale: 60,
+  revalidate: 60,
+  expire: 60 * 60 * 24,
+} as const
+
+export async function getCachedProducts(): Promise<Array<Product>> {
+  'use cache'
+  cacheLife(PRODUCT_CACHE_POLICY)
+  const result = await sql.query('SELECT * FROM products')
+  return result as Array<Product>
+}

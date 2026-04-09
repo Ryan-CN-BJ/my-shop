@@ -1,10 +1,11 @@
-import { productDetailAction, productsAction } from '@/actions/product'
+import { productDetailAction } from '@/actions/product'
 import Image from 'next/image'
 import { Suspense } from 'react'
 import AddCart from '../components/AddCart'
+import { getCachedProducts } from '@/data/product'
 // import { cacheLife } from 'next/cache'
 export async function generateStaticParams() {
-  const { data } = await productsAction()
+  const data = await getCachedProducts()
   return data.map((product) => {
     return {
       id: product.id + '',

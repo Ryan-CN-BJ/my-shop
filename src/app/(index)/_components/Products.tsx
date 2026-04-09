@@ -43,6 +43,7 @@ export default function Products({
                     alt={product.name}
                     fill={true}
                     sizes={'30vw'}
+                    loading="eager"
                   />
                 </div>
 
