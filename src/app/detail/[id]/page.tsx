@@ -1,8 +1,7 @@
-import { productDetailAction } from '@/actions/product'
 import Image from 'next/image'
 import { Suspense } from 'react'
 import AddCart from '../components/AddCart'
-import { getCachedProducts } from '@/data/product'
+import { getCachedProducts, getCachedProductById } from '@/data/product'
 // import { cacheLife } from 'next/cache'
 export async function generateStaticParams() {
   const data = await getCachedProducts()
@@ -33,7 +32,7 @@ async function DetailContent({ id }: { id: number }) {
   //   revalidate: 60 * 60 * 24,
   //   expire: 60 * 60 * 24,
   // })
-  const product = await productDetailAction({ id })
+  const product = await getCachedProductById(id)
 
   if (!product) {
     return null
