@@ -44,14 +44,15 @@ async function DetailContent({ id }: { id: number }) {
         <h2 className="text-[21px] mb-[10] font-bold">{product?.name}</h2>
         <p>{product?.description}</p>
       </div>
-      <div className="ml-[20]">
+      <div className="ml-[20] w-[300] h-[300] bg-slate-50 relative">
         {product?.image && (
           <Image
-            className="w-[300] bg-slate-50"
+            className="object-cover"
             src={product?.image}
             alt={product?.name}
-            width={300}
-            height={300}
+            fill={true}
+            loading={'eager'}
+            sizes="30vw"
           />
         )}
       </div>

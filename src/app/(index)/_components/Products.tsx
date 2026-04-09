@@ -37,7 +37,13 @@ export default function Products({
                 className="shadow-xl cursor-pointer transition duration-[3000] ease-in-out flex flex-col items-center bg-slate-50 hover:bg-slate-200 p-[15] rounded-2xl"
               >
                 <div className="h-[150] w-[60%] relative">
-                  <Image src={product.image} alt={product.name} fill={true} />
+                  <Image
+                    className="object-contain"
+                    src={product.image}
+                    alt={product.name}
+                    fill={true}
+                    sizes={'30vw'}
+                  />
                 </div>
 
                 <div className="mt-[20] px-[20] flex w-full justify-between items-center">
