@@ -6,6 +6,7 @@ import { Fragment } from 'react'
 
 export default function AddCart({ product }: { product: Product }) {
   const [cate, setCate] = useState<string>('')
+
   return (
     <div>
       <h3 className="font-bold text-[19px] mb-[10]">Select</h3>
