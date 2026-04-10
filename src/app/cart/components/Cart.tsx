@@ -1,14 +1,80 @@
 'use client'
 
 import Link from 'next/link'
-import { MoveUpRight } from 'lucide-react'
+import { MoveUpRight, Trash2 } from 'lucide-react'
+import Image from 'next/image'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 
 export default function Cart() {
-  const cartList = []
+  const cartList = [123]
 
   const content =
     cartList.length > 0 ? (
-      <div>lsit</div>
+      <div className="flex items-start">
+        <div className="flex-1 mr-14">
+          <h2 className="text-xl font-bold mb-1">Cart</h2>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Item</TableHead>
+                <TableHead>Quantity</TableHead>
+                <TableHead>Price</TableHead>
+                <TableHead>Total</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>
+                  <div className="flex items-center">
+                    <Image src="" alt="" width={64} height={64} className="w-[64xp] h-[64px]" />
+                    <div className="ml-4 space-y-3">
+                      <p className="text-sm font-medium">搅拌机</p>
+                      <p className="text-xs text-gray-400">黑色</p>
+                    </div>
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <div className="flex items-center">
+                    <Trash2 className="mr-[5]" />
+                    <Select defaultValue="banana">
+                      <SelectTrigger className="w-[120px]">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent position={'item-aligned'}>
+                        <SelectGroup>
+                          <SelectItem value="apple">Apple</SelectItem>
+                          <SelectItem value="banana">Banana</SelectItem>
+                          <SelectItem value="blueberry">Blueberry</SelectItem>
+                          <SelectItem value="grapes">Grapes</SelectItem>
+                          <SelectItem value="pineapple">Pineapple</SelectItem>
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </TableCell>
+                <TableCell>123</TableCell>
+                <TableCell>123</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </div>
+        <div className="w-[200px]">右侧</div>
+      </div>
     ) : (
       <div className="py-[50px]">
         <h2 className="text-xl font-bold">Cart</h2>
