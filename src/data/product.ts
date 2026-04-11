@@ -3,8 +3,8 @@ import { cacheLife } from 'next/cache'
 import sql from '@/lib/db'
 
 const PRODUCT_CACHE_POLICY = {
-  stale: 60 * 11,
-  revalidate: 60 * 10,
+  stale: 60 * 1,
+  revalidate: 50,
   expire: 60 * 60 * 24,
 } as const
 
