@@ -1,10 +1,8 @@
 import Sort from '@/app/(index)/_components/Sort'
 import Products from '@/app/(index)/_components/Products'
 import { getCachedProducts } from '@/data/product'
-import { connection } from 'next/server'
 
 export default async function Page() {
-  await connection()
   const res = await getCachedProducts()
   const products = res
   return (
