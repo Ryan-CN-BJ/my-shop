@@ -20,11 +20,21 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
+import { useCartStore } from '@/app/store'
 
 export default function Cart() {
-  const cartList = [123]
-
   const Quantities = Array.from({ length: 10 }, (_, i) => i + 1)
+  const state = useCartStore((state) => state)
+  const cartList = state.cartList
+
+  const handleQualityChange = (cartItem: CartItem, v: number) => {
+    const index = state.isItemInCart(cartItem.product, cartItem.selectvarient)
+    state.updateQuantity(cartItem.product, v, cartList[index].selectvarient)
+  }
+
+  const total = cartList.reduce((pre, item) => {
+    return pre + item.quantity * item.product.price
+  }, 0)
 
   const content =
     cartList.length > 0 ? (
@@ -41,46 +51,62 @@ export default function Cart() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              <TableRow>
-                <TableCell>
-                  <div className="flex items-center">
-                    <Image src="" alt="" width={64} height={64} className="w-[64xp] h-[64px]" />
-                    <div className="ml-4 space-y-3">
-                      <p className="text-sm font-medium">搅拌机</p>
-                      <p className="text-xs text-gray-400">黑色</p>
-                    </div>
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <div className="flex items-center">
-                    <Trash2 className="mr-[5]" />
-                    <Select defaultValue="banana">
-                      <SelectTrigger className="w-[120px]">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent position={'item-aligned'}>
-                        <SelectGroup>
-                          {Quantities.map((item) => {
-                            return (
-                              <SelectItem value={item + ''} key={item}>
-                                {item}
-                              </SelectItem>
-                            )
-                          })}
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </TableCell>
-                <TableCell>123</TableCell>
-                <TableCell>123</TableCell>
-              </TableRow>
+              {cartList.map((item) => {
+                return (
+                  <TableRow key={item.product.id + item.selectvarient}>
+                    <TableCell>
+                      <div className="flex items-center">
+                        <Image
+                          src={item.product.image}
+                          alt=""
+                          width={64}
+                          height={64}
+                          className="w-[64xp] h-[64px]"
+                        />
+                        <div className="ml-4 space-y-3">
+                          <p className="text-sm font-medium">{item.product.name}</p>
+                          <p className="text-xs text-gray-400">{item.selectvarient}</p>
+                        </div>
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex items-center">
+                        <Trash2 className="mr-[5]" />
+                        <Select
+                          defaultValue="banana"
+                          value={item.quantity + ''}
+                          onValueChange={(v) => {
+                            handleQualityChange(item, Number(v))
+                          }}
+                        >
+                          <SelectTrigger className="w-[120px]">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent position={'item-aligned'}>
+                            <SelectGroup>
+                              {Quantities.map((item) => {
+                                return (
+                                  <SelectItem value={item + ''} key={item}>
+                                    {item}
+                                  </SelectItem>
+                                )
+                              })}
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </TableCell>
+                    <TableCell>{item.product.price}</TableCell>
+                    <TableCell>{item.product.price * item.quantity}</TableCell>
+                  </TableRow>
+                )
+              })}
             </TableBody>
           </Table>
         </div>
         <div className="w-[200px]">
           <h2 className="text-2xl font-bold mb-2">Total</h2>
-          <p className="text-2xl font-bold text-red-400 mb-3">$100</p>
+          <p className="text-2xl font-bold text-red-400 mb-3">${total}</p>
           <Link href="/account">
             <Button className="w-full">Login</Button>
           </Link>

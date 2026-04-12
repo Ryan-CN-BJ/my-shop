@@ -5,7 +5,7 @@ type CartState = {
   addToCart: (cartItem: CartItem) => void
   removeFromCart: (product: CartItem) => void
   isItemInCart: (product: Product, selectVarient: string) => number
-  updateQuantity: (cartItem: CartItem, quantity: number) => void
+  updateQuantity: (product: Product, quantity: number, selectvarient: string) => void
 }
 
 export const useCartStore = create<CartState>((set, get) => ({
@@ -29,14 +29,11 @@ export const useCartStore = create<CartState>((set, get) => ({
       (item) => item.product.id === product.id && item.selectvarient === selectVarient,
     )
   },
-  updateQuantity: (cartItem, quantity) => {
+  updateQuantity: (product, quantity, selectvarient) => {
     set((state) => {
       return {
         cartList: state.cartList.map((item) => {
-          if (
-            item.product.id !== cartItem.product.id ||
-            item.product.variant !== cartItem.selectvarient
-          ) {
+          if (item.product.id !== product.id || item.selectvarient !== selectvarient) {
             return item
           } else {
             return { ...item, quantity }
