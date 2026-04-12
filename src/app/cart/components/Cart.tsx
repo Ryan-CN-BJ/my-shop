@@ -19,9 +19,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { Button } from '@/components/ui/button'
 
 export default function Cart() {
   const cartList = [123]
+
+  const Quantities = Array.from({ length: 10 }, (_, i) => i + 1)
 
   const content =
     cartList.length > 0 ? (
@@ -57,11 +60,13 @@ export default function Cart() {
                       </SelectTrigger>
                       <SelectContent position={'item-aligned'}>
                         <SelectGroup>
-                          <SelectItem value="apple">Apple</SelectItem>
-                          <SelectItem value="banana">Banana</SelectItem>
-                          <SelectItem value="blueberry">Blueberry</SelectItem>
-                          <SelectItem value="grapes">Grapes</SelectItem>
-                          <SelectItem value="pineapple">Pineapple</SelectItem>
+                          {Quantities.map((item) => {
+                            return (
+                              <SelectItem value={item + ''} key={item}>
+                                {item}
+                              </SelectItem>
+                            )
+                          })}
                         </SelectGroup>
                       </SelectContent>
                     </Select>
@@ -73,7 +78,14 @@ export default function Cart() {
             </TableBody>
           </Table>
         </div>
-        <div className="w-[200px]">右侧</div>
+        <div className="w-[200px]">
+          <h2 className="text-2xl font-bold mb-2">Total</h2>
+          <p className="text-2xl font-bold text-red-400 mb-3">$100</p>
+          <Link href="/account">
+            <Button className="w-full">Login</Button>
+          </Link>
+          <p className="text-xs text-center mt-1 text-slate-300">You need to login to check out!</p>
+        </div>
       </div>
     ) : (
       <div className="py-[50px]">
