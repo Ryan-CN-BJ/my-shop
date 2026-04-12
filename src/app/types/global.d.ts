@@ -7,3 +7,9 @@ type Product = {
   price: number
   variant: Array[string]
 }
+
+type CartItem = {
+  product: Product
+  quantity: number
+  selectvarient: string
+}
