@@ -32,6 +32,10 @@ export default function Cart() {
     state.updateQuantity(cartItem.product, v, cartList[index].selectvarient)
   }
 
+  const handleRemoveCartItem = (cartItem: CartItem) => {
+    state.removeFromCart(cartItem)
+  }
+
   const total = cartList.reduce((pre, item) => {
     return pre + item.quantity * item.product.price
   }, 0)
@@ -71,7 +75,12 @@ export default function Cart() {
                     </TableCell>
                     <TableCell>
                       <div className="flex items-center">
-                        <Trash2 className="mr-[5]" />
+                        <Trash2
+                          className="mr-[5] cursor-pointer"
+                          onClick={() => {
+                            handleRemoveCartItem(item)
+                          }}
+                        />
                         <Select
                           defaultValue="banana"
                           value={item.quantity + ''}
@@ -79,7 +88,7 @@ export default function Cart() {
                             handleQualityChange(item, Number(v))
                           }}
                         >
-                          <SelectTrigger className="w-[120px]">
+                          <SelectTrigger className="w-[70px]">
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent position={'item-aligned'}>
