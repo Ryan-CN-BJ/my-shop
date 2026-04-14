@@ -1,16 +1,21 @@
 'use client'
 import { Form } from 'radix-ui'
 import { type Dispatch, type SetStateAction, SubmitEventHandler } from 'react'
+import { loginAction } from '@/actions/users'
 export default function Login({
   toggle,
 }: {
   toggle: Dispatch<SetStateAction<'login' | 'register'>>
 }) {
-  const handleLogin: SubmitEventHandler<HTMLFormElement> = (e) => {
+  const handleLogin: SubmitEventHandler<HTMLFormElement> = async (e) => {
     console.log('提交事件触发了！')
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
+    const email = formData.get('email') as string
+    const password = formData.get('password') as string
     console.log(formData.get('email'))
+    const res = await loginAction(email, password)
+    console.log(res)
   }
   return (
     <div className="w-[400px] mx-auto my-5">
