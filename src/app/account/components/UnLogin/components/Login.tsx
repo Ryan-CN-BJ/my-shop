@@ -68,7 +68,7 @@ export default function Login({
           </Form.Message>
         </Form.Field>
 
-        <Form.Submit className="w-full h-[40px] bg-black rounded-xl text-white cursor-pointer">
+        <Form.Submit className="w-full h-[40px] bg-black rounded-xl text-white cursor-pointer mt-2">
           Sign in
         </Form.Submit>
       </Form.Root>
