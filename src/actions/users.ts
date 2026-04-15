@@ -2,10 +2,7 @@
 import sql from '@/lib/db'
 
 export async function loginAction(email: string, password: string) {
-  const res = await sql.query('select * from users where email = $1 and password = $2', [
-    email,
-    password,
-  ])
+  const res = await sql`SELECT * FROM users WHERE email = ${email} AND password = ${password}`
   if (res.length === 0) {
     return {
       status: 401,

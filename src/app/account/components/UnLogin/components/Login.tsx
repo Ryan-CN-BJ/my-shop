@@ -2,6 +2,7 @@
 import { Form } from 'radix-ui'
 import { type Dispatch, type SetStateAction, SubmitEventHandler } from 'react'
 import { loginAction } from '@/actions/users'
+import { toast } from 'sonner'
 export default function Login({
   toggle,
 }: {
@@ -15,7 +16,24 @@ export default function Login({
     const password = formData.get('password') as string
     console.log(formData.get('email'))
     const res = await loginAction(email, password)
-    console.log(res)
+    console.log(res, 'res000')
+    if (res.status === 401) {
+      toast.error('', {
+        position: 'top-center',
+        description: 'Login failed！',
+        classNames: {
+          description: '!text-red-900',
+        },
+      })
+    } else {
+      toast.success('', {
+        description: 'Login success',
+        position: 'top-center',
+        classNames: {
+          description: '!text-green',
+        },
+      })
+    }
   }
   return (
     <div className="w-[400px] mx-auto my-5">
@@ -66,7 +84,7 @@ export default function Login({
           <Form.Message
             className="text-red-400"
             match={(value) => {
-              return value.length < 8
+              return value.length < 3
             }}
           >
             Password is not vaild!
