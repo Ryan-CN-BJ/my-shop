@@ -16,3 +16,28 @@ export async function loginAction(email: string, password: string) {
     }
   }
 }
+
+export async function registerAction(email: string, name: string, password: string) {
+  const has = await sql`SELECT * FROM users WHERE email = ${email}`
+  if (has.length > 0) {
+    return {
+      status: 401,
+      message: 'The email already exists!',
+    }
+  }
+  const res =
+    await sql`INSERT INTO users (email,name,password) VALUES (${email},${name},${password}) RETURNING ID,name,email`
+  console.log(res, 'res-----')
+  if (res.length > 0) {
+    return {
+      status: 200,
+      data: res[0],
+      message: 'register success',
+    }
+  } else {
+    return {
+      status: 401,
+      message: 'register failed',
+    }
+  }
+}

@@ -1,14 +1,37 @@
 'use client'
 import { Form } from 'radix-ui'
 import { Dispatch, SetStateAction, SubmitEventHandler } from 'react'
+import { registerAction } from '@/actions/users'
+import { toast } from 'sonner'
 export default function Register({
   toggle,
 }: {
   toggle: Dispatch<SetStateAction<'login' | 'register'>>
 }) {
-  const handleSubmit: SubmitEventHandler<HTMLFormElement> = (e) => {
+  const handleSubmit: SubmitEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault()
-    console.log(e)
+    const formData = new FormData(e.currentTarget)
+    const email = formData.get('email') as string
+    const name = formData.get('username') as string
+    const password = formData.get('password') as string
+    const res = await registerAction(email, name, password)
+    if (res.status === 401) {
+      toast.error('', {
+        position: 'top-center',
+        description: `Register failed,${res.message}`,
+        classNames: {
+          description: '!text-red-900',
+        },
+      })
+    } else {
+      toast.success('', {
+        description: 'Register success',
+        position: 'top-center',
+        classNames: {
+          description: '!text-green',
+        },
+      })
+    }
   }
   return (
     <div className="w-[400px] mx-auto my-5">
@@ -32,7 +55,7 @@ export default function Register({
           <Form.Message
             className="text-red-400"
             match={(value) => {
-              return value.length < 5
+              return value.length < 8
             }}
           >
             Mail is not vaild!
@@ -44,7 +67,7 @@ export default function Register({
             <Form.Control asChild>
               <input
                 className="flex-1 h-10 px-3 outline-1 data-invalid:outline-red-400 rounded-sm"
-                placeholder="Please enter email!"
+                placeholder="Please enter name!"
               />
             </Form.Control>
           </div>
