@@ -28,11 +28,16 @@ export async function loginAction(email: string, password: string) {
       name: 'token',
       value: token,
       path: '/',
-      maxAge: 60 * 60 * 24 * 30,
+      expires: new Date(new Date().getTime() + 60 * 60 * 24),
+      httpOnly: true,
     })
     return {
       status: 200,
-      data: res[0],
+      data: {
+        name: res[0].name,
+        id: res[0].id,
+        email: res[0].email,
+      },
       message: 'login success',
     }
   }
