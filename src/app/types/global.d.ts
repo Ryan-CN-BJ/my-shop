@@ -1,5 +1,8 @@
 type SortValueType = 'latest' | 'low' | 'hight'
 type Product = {
+  /**
+   * id是一个数字
+   */
   id: number
   description: string
   image: string

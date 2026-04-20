@@ -31,6 +31,7 @@ export default function Register({
           description: '!text-green',
         },
       })
+      toggle('login')
     }
   }
   return (

@@ -3,13 +3,14 @@ import { Form } from 'radix-ui'
 import { type Dispatch, type SetStateAction, SubmitEventHandler } from 'react'
 import { loginAction } from '@/actions/users'
 import { toast } from 'sonner'
+import { useRouter } from 'next/navigation'
 export default function Login({
   toggle,
 }: {
   toggle: Dispatch<SetStateAction<'login' | 'register'>>
 }) {
+  const router = useRouter()
   const handleLogin: SubmitEventHandler<HTMLFormElement> = async (e) => {
-    console.log('提交事件触发了！')
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
     const email = formData.get('email') as string
@@ -33,6 +34,7 @@ export default function Login({
           description: '!text-green',
         },
       })
+      router.refresh()
     }
   }
   return (
