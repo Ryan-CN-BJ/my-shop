@@ -2,7 +2,7 @@
 import { Button } from '@/components/ui/button'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { useState, Fragment } from 'react'
-import { useCartStore } from '@/app/store'
+import { useCartStore } from '@/store'
 
 export default function AddCart({ product }: { product: Product }) {
   const [cate, setCate] = useState<string>('')
