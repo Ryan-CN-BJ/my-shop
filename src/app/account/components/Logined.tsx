@@ -4,6 +4,7 @@ import { JwtPayload } from 'jsonwebtoken'
 import { logoutAction } from '@/actions/users'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
+import Address from './Address'
 export default function Logined({ user }: { user: JwtPayload }) {
   const router = useRouter()
   const handleLogout = async () => {
@@ -37,6 +38,7 @@ export default function Logined({ user }: { user: JwtPayload }) {
           <p>Saving your address will maek them available during checkout!</p>
         </div>
         {/** todo 添加地址 */}
+        <Address />
       </div>
       <div>
         <h2 className="text-lg font-bold leading-10">Orders</h2>
