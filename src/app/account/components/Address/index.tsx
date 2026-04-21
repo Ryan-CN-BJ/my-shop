@@ -6,19 +6,35 @@ import {
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
-  AlertDialogMedia,
-  AlertDialogOverlay,
-  AlertDialogPortal,
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
 import { Form } from 'radix-ui'
 import { Plus } from 'lucide-react'
-import { useRef, useState } from 'react'
-import { Button } from '@/components/ui/button'
-export default function Address() {
+import { useRef, useState, SubmitEventHandler } from 'react'
+import { addAddressAction } from '@/actions/addtess'
+import { toast } from 'sonner'
+export default function Address({ userId }: { userId: string }) {
   const [open, setOpen] = useState(false)
   const formRef = useRef<HTMLFormElement>(null)
+  const handleSubmit: SubmitEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault()
+    const formData = new FormData(e.currentTarget)
+    const data = Object.fromEntries(formData)
+    const res = await addAddressAction({ ...data, userid: userId } as Address)
+    if (res.status === 200) {
+      toast.success('', {
+        description: 'Add address success',
+        position: 'top-center',
+      })
+      setOpen(false)
+    } else {
+      toast.error('', {
+        description: 'Add address failed',
+        position: 'top-center',
+      })
+    }
+  }
   return (
     <div className="grid grid-cols-2 gap-4">
       <AlertDialog open={open} onOpenChange={setOpen}>
@@ -34,7 +50,7 @@ export default function Address() {
           <AlertDialogHeader>
             <AlertDialogTitle>Add address</AlertDialogTitle>
             <AlertDialogDescription className="w-full" asChild>
-              <Form.Root className="w-full" ref={formRef}>
+              <Form.Root className="w-full" ref={formRef} onSubmit={handleSubmit}>
                 <Form.Field name="name" className="mb-4">
                   <div className="flex items-center">
                     <Form.Label className="w-[60px] text-left mr-4">Name</Form.Label>
@@ -104,13 +120,14 @@ export default function Address() {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <Button
-              onClick={async () => {
+            <AlertDialogAction
+              onClick={(e) => {
+                e.preventDefault()
                 formRef.current?.requestSubmit()
               }}
             >
               Confirm
-            </Button>
+            </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

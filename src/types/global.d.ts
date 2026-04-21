@@ -16,3 +16,11 @@ type CartItem = {
   quantity: number
   selectvarient: string
 }
+
+type Address = {
+  name: string
+  city: string
+  address: string
+  phone: string
+  userid: string
+}

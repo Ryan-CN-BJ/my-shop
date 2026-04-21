@@ -38,7 +38,7 @@ export default function Logined({ user }: { user: JwtPayload }) {
           <p>Saving your address will maek them available during checkout!</p>
         </div>
         {/** todo 添加地址 */}
-        <Address />
+        <Address userId={user.id} />
       </div>
       <div>
         <h2 className="text-lg font-bold leading-10">Orders</h2>
