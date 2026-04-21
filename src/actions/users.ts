@@ -78,7 +78,6 @@ export async function authAction() {
       }
     }
     const payload = jwt.verify(token, SECRET_KEY)
-    console.log(payload, 'payload----')
     return {
       status: 200,
       message: 'Auth success',
@@ -90,5 +89,14 @@ export async function authAction() {
       message: 'Auth failed!',
       error: e,
     }
+  }
+}
+
+export async function logoutAction() {
+  const cookie = await cookies()
+  cookie.delete('token')
+  return {
+    status: 200,
+    message: 'logout success',
   }
 }
