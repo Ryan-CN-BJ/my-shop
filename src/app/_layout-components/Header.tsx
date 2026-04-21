@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { Separator } from '@/components/ui/separator'
 import { Title, MenuList } from '@/lib/constant'
 import { Fragment } from 'react/jsx-runtime'
-import { useCartStore } from '../store'
+import { useCartStore } from '@/store'
 
 export default function Header() {
   const cartStore = useCartStore()

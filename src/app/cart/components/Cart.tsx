@@ -20,7 +20,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
-import { useCartStore } from '@/app/store'
+import { useCartStore } from '@/store'
 
 export default function Cart() {
   const Quantities = Array.from({ length: 10 }, (_, i) => i + 1)
