@@ -17,3 +17,20 @@ export async function addAddressAction({ name, city, address, phone, userid }: A
     }
   }
 }
+
+export async function addressAction(userId: string) {
+  const res = (await sql`SELECT * FROM addresses WHERE userid = ${userId}`) as Address[]
+  return {
+    status: 200,
+    data: res,
+    message: 'query success!',
+  }
+}
+
+export async function removeAddressAction(id: string) {
+  await sql`DELETE FROM addresses WHERE id = ${id}`
+  return {
+    status: 200,
+    message: 'remove success!',
+  }
+}

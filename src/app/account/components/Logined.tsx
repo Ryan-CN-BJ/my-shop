@@ -5,7 +5,7 @@ import { logoutAction } from '@/actions/users'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import Address from './Address'
-export default function Logined({ user }: { user: JwtPayload }) {
+export default function Logined({ user, address }: { user: JwtPayload; address: Address[] }) {
   const router = useRouter()
   const handleLogout = async () => {
     const res = await logoutAction()
@@ -38,7 +38,7 @@ export default function Logined({ user }: { user: JwtPayload }) {
           <p>Saving your address will maek them available during checkout!</p>
         </div>
         {/** todo 添加地址 */}
-        <Address userId={user.id} />
+        <Address userId={user.id} address={address} />
       </div>
       <div>
         <h2 className="text-lg font-bold leading-10">Orders</h2>

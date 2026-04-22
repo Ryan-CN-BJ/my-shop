@@ -10,13 +10,15 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
 import { Form } from 'radix-ui'
-import { Plus } from 'lucide-react'
+import { Plus, Edit, Delete } from 'lucide-react'
 import { useRef, useState, SubmitEventHandler } from 'react'
-import { addAddressAction } from '@/actions/addtess'
+import { addAddressAction, removeAddressAction } from '@/actions/addtess'
 import { toast } from 'sonner'
-export default function Address({ userId }: { userId: string }) {
+import { useRouter } from 'next/navigation'
+export default function Address({ userId, address }: { userId: string; address: Address[] }) {
   const [open, setOpen] = useState(false)
   const formRef = useRef<HTMLFormElement>(null)
+  const router = useRouter()
   const handleSubmit: SubmitEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
@@ -28,12 +30,21 @@ export default function Address({ userId }: { userId: string }) {
         position: 'top-center',
       })
       setOpen(false)
+      router.refresh()
     } else {
       toast.error('', {
         description: 'Add address failed',
         position: 'top-center',
       })
     }
+  }
+  const handleDelete = async (id: string) => {
+    await removeAddressAction(id)
+    router.refresh()
+    toast.success('', {
+      description: 'Address delete success!',
+      position: 'top-center',
+    })
   }
   return (
     <div className="grid grid-cols-2 gap-4">
@@ -131,6 +142,30 @@ export default function Address({ userId }: { userId: string }) {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+      <div>
+        {address.map((item) => {
+          return (
+            <div className="border rounded-sm h-40 relative text-slate-600" key={item.id}>
+              <p className="">{item.name}</p>
+              <div>
+                <p>{item.city}</p>
+                <p>{item.address}</p>
+                <p>{item.phone}</p>
+              </div>
+              <div className="absolute left-3 bottom-3 flex items-center text-xs gap-2">
+                <Edit width={14} className="cursor-pointer" />
+                <Delete
+                  width={14}
+                  className="cursor-pointer"
+                  onClick={() => {
+                    handleDelete(item.id)
+                  }}
+                />
+              </div>
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }
