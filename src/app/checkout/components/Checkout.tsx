@@ -37,7 +37,7 @@ export default function Checkout({ address }: { address: Address[] }) {
         {address.length > 0 ? (
           <Select value={selectedAddress} onValueChange={handleAddressChange}>
             <SelectTrigger className="w-full">
-              <SelectValue asChild>
+              <SelectValue>
                 <div>{address.find((ad) => ad.id === selectedAddress)?.name}</div>
               </SelectValue>
             </SelectTrigger>
