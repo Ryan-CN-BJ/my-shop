@@ -22,7 +22,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { useCartStore } from '@/store'
 
-export default function Cart() {
+export default function Cart({ authed }: { authed: boolean }) {
   const Quantities = Array.from({ length: 10 }, (_, i) => i + 1)
   const state = useCartStore((state) => state)
   const cartList = state.cartList
@@ -116,10 +116,20 @@ export default function Cart() {
         <div className="w-[200px]">
           <h2 className="text-2xl font-bold mb-2">Total</h2>
           <p className="text-2xl font-bold text-red-400 mb-3">${total}</p>
-          <Link href="/account">
-            <Button className="w-full">Login</Button>
-          </Link>
-          <p className="text-xs text-center mt-1 text-slate-300">You need to login to check out!</p>
+          {authed ? (
+            <Link href="/checkout">
+              <Button className="w-full cursor-pointer">Check Out</Button>
+            </Link>
+          ) : (
+            <div>
+              <Link href="/account" className="cursor-pointer">
+                <Button className="w-full cursor-pointer ">Login</Button>
+              </Link>
+              <p className="text-xs text-center mt-1 text-slate-300">
+                You need to login to check out!
+              </p>
+            </div>
+          )}
         </div>
       </div>
     ) : (

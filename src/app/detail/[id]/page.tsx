@@ -2,15 +2,15 @@ import Image from 'next/image'
 import { Suspense } from 'react'
 import AddCart from '../components/AddCart'
 import { getCachedProducts, getCachedProductById } from '@/data/product'
-// import { cacheLife } from 'next/cache'
-export async function generateStaticParams() {
-  const data = await getCachedProducts()
-  return data.map((product) => {
-    return {
-      id: product.id + '',
-    }
-  })
-}
+import { cacheLife } from 'next/cache'
+// export async function generateStaticParams() {
+//   const data = await getCachedProducts()
+//   return data.map((product) => {
+//     return {
+//       id: product.id + '',
+//     }
+//   })
+// }
 
 function DetailFallback() {
   return (
@@ -25,14 +25,13 @@ function DetailFallback() {
   )
 }
 
-async function DetailContent({ id }: { id: number }) {
+async function DetailContent({ product }: { product: Product | null }) {
   // 'use cache'
   // cacheLife({
-  //   stale: 60,
-  //   revalidate: 60 * 60 * 24,
+  //   stale: 5,
+  //   revalidate: 10 * 2,
   //   expire: 60 * 60 * 24,
   // })
-  const product = await getCachedProductById(id)
 
   if (!product) {
     return null
@@ -66,16 +65,17 @@ async function DetailContent({ id }: { id: number }) {
 export default async function DetailPage(props: PageProps<'/detail/[id]'>) {
   // 'use cache'
   // cacheLife({
-  //   stale: 60,
-  //   revalidate: 60 * 60 * 24,
+  //   stale: 20,
+  //   revalidate: 60 * 2,
   //   expire: 60 * 60 * 24,
   // })
   const { id } = await props.params
+  const product = await getCachedProductById(Number(id))
   return (
     <div className="w-[980] py-[25] mx-auto flex items-start">
-      <Suspense fallback={<DetailFallback />}>
-        <DetailContent id={Number(id)} />
-      </Suspense>
+      {/* <Suspense fallback={<DetailFallback />}> */}
+      <DetailContent product={product} />
+      {/* </Suspense> */}
     </div>
   )
 }

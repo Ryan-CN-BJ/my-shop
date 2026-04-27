@@ -3,7 +3,7 @@ import 'server-only'
 import sql from '@/lib/db'
 
 // const PRODUCT_CACHE_POLICY_DETAIL = {
-//   stale: 60,
+//   stale: 10,
 //   revalidate: 50,
 //   expire: 60 * 60 * 24,
 // } as const
