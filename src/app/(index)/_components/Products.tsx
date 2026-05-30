@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { Fragment } from 'react/jsx-runtime'
 import { useSortType } from '@/app/(index)/store/index'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+// import { useEffect, useState } from 'react'
 
 export default function Products({
   products,
@@ -22,24 +22,24 @@ export default function Products({
     return 0
   })
 
-  const [content, setContent] = useState('')
+  // const [content, setContent] = useState('')
 
-  useEffect(() => {
-    const eventSource = new EventSource('/api/test')
+  // useEffect(() => {
+  //   const eventSource = new EventSource('/api/test')
 
-    eventSource.onmessage = (event) => {
-      const data = JSON.parse(event.data)
-      console.log('Received:', data)
-      setContent((c) => {
-        return c + data.word
-      })
-      // 这里可以更新产品列表状态
-    }
+  //   eventSource.onmessage = (event) => {
+  //     const data = JSON.parse(event.data)
+  //     console.log('Received:', data)
+  //     setContent((c) => {
+  //       return c + data.word
+  //     })
+  //     // 这里可以更新产品列表状态
+  //   }
 
-    return () => {
-      eventSource.close()
-    }
-  }, [])
+  //   return () => {
+  //     eventSource.close()
+  //   }
+  // }, [])
 
   const router = useRouter()
   const handleToDetail = (id: number) => {
@@ -48,7 +48,7 @@ export default function Products({
 
   return (
     <div className="flex-1 ml-[40]">
-      {content}
+      {/* {content} */}
       <h2 className="mb-[30] text-2xl">All Products</h2>
       <div className="grid grid-cols-3 gap-[50]">
         {products.map((product) => {
